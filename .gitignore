@@ -23,5 +23,3 @@ coverage
 # ignore .env
 .env
 
-apps/_core/Email/flowdeck_token.json
-apps/_core/Email/flowdeck_credentials.json

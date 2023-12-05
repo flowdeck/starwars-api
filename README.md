@@ -74,5 +74,13 @@ DELETE http://starwars-api.garethashton.com/vehicles/100
 
 > Will return 204 (no content) on successful delete
 
+### JWT Token Example
+
+
+#### Get Access Token by Film Id
+> Just for demonstration, generate an 24 hour access token using film id to sign
+
+GET http://starwars-api.garethashton.com/get-token-for-film/1
+
 
 

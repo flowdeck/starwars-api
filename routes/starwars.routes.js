@@ -1,4 +1,7 @@
 //* Controllers
+var jwt = require('jsonwebtoken')
+var bcrypt = require('bcryptjs')
+
 const StarWarsController = require('../controllers/starwars.controller.js')
 
 module.exports = function (app) {
@@ -19,7 +22,6 @@ module.exports = function (app) {
             //* Controller handles error, just return generic error wihtout details
             return res.status(500).json({ error: 'An error occurred while retrieving film.' })
         } else {
-            //* Return patient
             return res.json(film)
         }
     })
@@ -33,7 +35,6 @@ module.exports = function (app) {
             //* Controller handles error, just return generic error wihtout details
             return res.status(500).json({ error: 'An error occurred while retrieving films.' })
         } else {
-            //* Return patient
             return res.json(films)
         }
     })
@@ -48,7 +49,6 @@ module.exports = function (app) {
             //* Controller handles error, just return generic error wihtout details
             return res.status(500).json({ error: 'An error occurred while retrieving person.' })
         } else {
-            //* Return patient
             return res.json(person)
         }
     })
@@ -62,7 +62,6 @@ module.exports = function (app) {
             //* Controller handles error, just return generic error wihtout details
             return res.status(500).json({ error: 'An error occurred while retrieving people.' })
         } else {
-            //* Return patient
             return res.json(people)
         }
     })
@@ -77,7 +76,6 @@ module.exports = function (app) {
             //* Controller handles error, just return generic error wihtout details
             return res.status(500).json({ error: 'An error occurred while retrieving planet.' })
         } else {
-            //* Return patient
             return res.json(planet)
         }
     })
@@ -91,7 +89,6 @@ module.exports = function (app) {
             //* Controller handles error, just return generic error wihtout details
             return res.status(500).json({ error: 'An error occurred while retrieving planets.' })
         } else {
-            //* Return patient
             return res.json(planets)
         }
     })
@@ -106,7 +103,6 @@ module.exports = function (app) {
             //* Controller handles error, just return generic error wihtout details
             return res.status(500).json({ error: 'An error occurred while retrieving species.' })
         } else {
-            //* Return patient
             return res.json(species)
         }
     })
@@ -120,7 +116,6 @@ module.exports = function (app) {
             //* Controller handles error, just return generic error wihtout details
             return res.status(500).json({ error: 'An error occurred while retrieving species.' })
         } else {
-            //* Return patient
             return res.json(species)
         }
     })
@@ -135,7 +130,6 @@ module.exports = function (app) {
             //* Controller handles error, just return generic error wihtout details
             return res.status(500).json({ error: 'An error occurred while retrieving starship.' })
         } else {
-            //* Return patient
             return res.json(starship)
         }
     })
@@ -149,7 +143,6 @@ module.exports = function (app) {
             //* Controller handles error, just return generic error wihtout details
             return res.status(500).json({ error: 'An error occurred while retrieving starships.' })
         } else {
-            //* Return patient
             return res.json(starships)
         }
     })
@@ -164,7 +157,6 @@ module.exports = function (app) {
             //* Controller handles error, just return generic error wihtout details
             return res.status(500).json({ error: 'An error occurred while retrieving vehicle.' })
         } else {
-            //* Return patient
             return res.json(vehicle)
         }
     })
@@ -178,7 +170,6 @@ module.exports = function (app) {
             //* Controller handles error, just return generic error wihtout details
             return res.status(500).json({ error: 'An error occurred while retrieving vehicles.' })
         } else {
-            //* Return patient
             return res.json(vehicles)
         }
     })
@@ -199,7 +190,7 @@ module.exports = function (app) {
         //*     max_atmosphering_speed: '1500',
         //*     model: 'Tri Ion Engine/ ADV Starfighter Turbo Booster',
         //*     passengers: '0',
-        //*     url: '8',
+        //*     url: '100',
         //*     vehicle_class: 'starfighter',
         //* }
 
@@ -257,6 +248,22 @@ module.exports = function (app) {
                 return new Error('Vehicle was not deleted.')
             }
         }
+    })
+
+    //* Get JWT Token
+    app.get('/get-token-for-film/:id', async (req, res) => {
+
+        const film = await StarWarsController.getFilm(req.params.id)
+
+        if (film instanceof Error) {
+            //* Controller handles error, just return generic error wihtout details
+            return res.status(500).json({ error: 'An error occurred while retrieving film.' })
+        } else {
+            return res.json({
+                accessToken: jwt.sign({ id: film.url }, process.env.JWT_SECRET, { expiresIn: 86400 }),
+            })
+        }
+
     })
 
 }
