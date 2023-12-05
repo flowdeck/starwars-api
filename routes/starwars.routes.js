@@ -6,7 +6,7 @@ module.exports = function (app) {
     //* Root
     app.get('/', async (req, res) => {
 
-        return res.json('Star Wars API Root')
+        return res.json('Star Wars API Root (see README)')
     })
 
     //* Get Film by ID
