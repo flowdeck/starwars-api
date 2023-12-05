@@ -244,4 +244,43 @@ module.exports = {
 
     },
 
+    //* Update Vehicle
+    updateVehicle: async (id, data) => {
+        try {
+            const vehicle = await VehicleModel
+                .findOneAndUpdate({ url: id }, data, { new: true })
+                .catch(error_findOneAndUpdate => { return global.handleError(error_findOneAndUpdate) })
+
+            if (!vehicle) {
+
+                const notFoundError = new Error(`Vehicle with url=${id} was not found.`)
+                return notFoundError
+            } else {
+                return vehicle
+            }
+
+        } catch (error) {
+            return global.handleError(error)
+        }
+    },
+
+    //* Delete Vehicle
+    deleteVehicle: async (id) => {
+        try {
+            const vehicle = await VehicleModel
+                .findOneAndDelete({ url: id })
+                .catch(error_findOneAndDelete => { return global.handleError(error_findOneAndDelete) })
+
+            if (!vehicle) {
+                const notFoundError = new Error(`Vehicle with url=${id} was not found.`)
+                return notFoundError
+            } else {
+                return vehicle
+            }
+
+        } catch (error) {
+            return global.handleError(error)
+        }
+    },
+
 }

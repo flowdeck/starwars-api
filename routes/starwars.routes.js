@@ -219,4 +219,44 @@ module.exports = function (app) {
         }
     })
 
+    //* Update Vehicle
+    app.put('/vehicle/:id', async (req, res) => {
+
+        const vehicle = await StarWarsController.updateVehicle(req.params.id, req.body)
+
+        if (vehicle instanceof Error) {
+            //* Controller handles error, just return generic error wihtout details
+            return res.status(500).json({ error: 'An error occurred while updating vehicle.' })
+        } else {
+            if (vehicle && vehicle.id) {
+
+                //* Status 204 (no content) updated successfully
+                //* Return vehicle id
+                return res.status(204).json(vehicle.id)
+            } else {
+                return new Error('Vehicle was not updated.')
+            }
+        }
+    })
+
+    //* Delete Vehicle
+    app.delete('/vehicle/:id', async (req, res) => {
+
+        const vehicle = await StarWarsController.deleteVehicle(req.params.id)
+
+        if (vehicle instanceof Error) {
+            //* Controller handles error, just return generic error wihtout details
+            return res.status(500).json({ error: 'An error occurred while deleting vehicle.' })
+        } else {
+            if (vehicle && vehicle._id) {
+
+                //* Status 202 (accepted) deleted successfully
+                //* Return vehicle id
+                return res.status(202).json(vehicle._id)
+            } else {
+                return new Error('Vehicle was not deleted.')
+            }
+        }
+    })
+
 }
