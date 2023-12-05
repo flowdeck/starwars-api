@@ -14,7 +14,10 @@ const FilmSchema = new mongoose.Schema({
     species: String,
     starships: String,
     url: String,
-    vehicles: String
+    vehicles: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Vehicles'
+    }]
 }, {
     timestamps: true,
 })

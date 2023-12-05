@@ -16,6 +16,7 @@ module.exports = {
             //* Normally we would use findById() but since we are using url as id, we need to use find() and specify the url field
             const film = await FilmModel
                 .find({ url: id })
+                .populate('vehicles')
                 .catch(error_onFind => { return global.handleError(error_onFind) })
 
             if (!film) {

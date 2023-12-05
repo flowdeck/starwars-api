@@ -11,7 +11,7 @@ const api_port = 8091
 
 //* Setup CORS options
 var corsOptions = {
-    origins: ['http://localhost:8081', 'http://starwars-api.garethashton.com', 'https://starwars-api.garethashton.com']
+    origins: ['http://localhost:8091', 'http://starwars-api.garethashton.com', 'https://starwars-api.garethashton.com']
 }
 
 //* Enable CORS

@@ -3,6 +3,12 @@ const StarWarsController = require('../controllers/starwars.controller.js')
 
 module.exports = function (app) {
 
+    //* Root
+    app.get('/', async (req, res) => {
+
+        return res.json('Star Wars API Root')
+    })
+
     //* Get Film by ID
     app.get('/films/:id', async (req, res) => {
 
