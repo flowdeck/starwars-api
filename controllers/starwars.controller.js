@@ -38,6 +38,7 @@ module.exports = {
         try {
             const films = await FilmModel
                 .find({})
+                .populate('vehicles')
                 .catch(error_onFindById => { return global.handleError(error_onFindById) })
 
             return films
